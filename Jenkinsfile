@@ -1,24 +1,17 @@
+pipeline {
     agent any
-
     stages {
         stage('Checkout Code') {
-            steps {
-                git branch: 'main',
-                    url: 'https://github.com/<harishjangam235>/hello-devops.git'
+    steps {
+        git branch: 'main',
+            credentialsId: 'github-creds',
+            url: 'https://github.com/harishjangam235/hello-devops.git' 
             }
         }
-
-        stage('Build with Maven') {
+        stage('Build') {
             steps {
-                sh 'mvn clean package'
-            }
-        }
-
-        stage('Build Docker Image') {
-            steps {
-                sh 'docker build -t hello-devops:1.0 .'
+                bat 'mvn clean package'
             }
         }
     }
 }
-
